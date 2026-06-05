@@ -1,0 +1,92 @@
+name: Bug report
+description: Something is broken or behaves unexpectedly.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug. Before reporting:
+        - **Do not include `MCP_PATH_SECRET`, Strava `client_secret`, refresh
+          tokens, or any URL containing your path secret.** Redact these.
+        - If you suspect a security issue, see [SECURITY.md](../SECURITY.md)
+          and file a private advisory instead of a public issue.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One paragraph — what's broken?
+      placeholder: "When I call get_activity_detail with a valid activity_id, the response is..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: How can someone else reproduce this on a clean clone?
+      placeholder: |
+        1. Set up `.env` with `MCP_PATH_SECRET=<…>` (redacted).
+        2. Run `python src/server.py`.
+        3. From another terminal: `python scripts/smoke.py`.
+        4. Observe the failure.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Paste relevant output. Redact secrets.
+    validations:
+      required: true
+
+  - type: input
+    id: commit
+    attributes:
+      label: Commit / version
+      placeholder: "e.g. main @ abc1234 or v0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Linux
+        - Other (specify in additional context)
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: "3.11.7"
+    validations:
+      required: true
+
+  - type: input
+    id: mcp
+    attributes:
+      label: mcp package version
+      description: "Output of `python -c \"import importlib.metadata; print(importlib.metadata.version('mcp'))\"`."
+      placeholder: "1.27.2"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Tunnel tool used (cloudflared/ngrok/domain), claude.ai vs local MCP Inspector, anything else relevant.

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: MCP SDK question
+    url: https://github.com/modelcontextprotocol/python-sdk/issues
+    about: Questions or bugs about the `mcp` Python SDK belong upstream.
+  - name: Anthropic / claude.ai connector question
+    url: https://support.claude.com/
+    about: Questions about the claude.ai connector flow itself belong with Anthropic support.
+  - name: Strava API question
+    url: https://communityhub.strava.com/
+    about: Questions about Strava's API behavior belong with Strava.

@@ -1,0 +1,5 @@
+mcp>=1.8.0
+requests>=2.31.0
+uvicorn>=0.30.0
+starlette>=0.37.0
+python-dotenv>=1.0.0

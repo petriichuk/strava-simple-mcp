@@ -1,0 +1,46 @@
+name: Feature request
+description: Propose a new tool, capability, or behavior.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing, please skim the [README](../README.md) — especially
+        "TODO / roadmap" and the [constitution](../.specify/memory/constitution.md).
+        Some kinds of features are explicitly out of scope:
+        - Storing plan / goal / training-adjustment state on the server
+          (Principle III — that belongs in your Claude Project memory).
+        - Calling an LLM from the server (Principle I).
+        - Returning raw per-second stream arrays (Principle II).
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the user-facing problem, not the implementation.
+      placeholder: "When I'm reviewing a tempo run, I want to know..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Sketch the API or behavior. Tool signature if relevant.
+      placeholder: |
+        Add `compare_periods(start_a, end_a, start_b, end_b)` returning…
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      placeholder: "I considered doing this client-side in chat, but…"
+
+  - type: textarea
+    id: principles
+    attributes:
+      label: Does this conflict with any constitution principle?
+      description: If you're unsure, leave blank — maintainers will check.

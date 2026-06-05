@@ -1,0 +1,13 @@
+[Unit]
+Description=Strava Custom MCP server
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/strava-custom-mcp
+EnvironmentFile=/opt/strava-custom-mcp/.env
+ExecStart=/opt/strava-custom-mcp/.venv/bin/python src/server.py
+Restart=always
+User=ubuntu
+
+[Install]
+WantedBy=multi-user.target

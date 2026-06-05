@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Lint + syntax + import (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Syntax check every .py file
+        run: |
+          find src scripts -name "*.py" -print -exec python -m py_compile {} \;
+
+      - name: Import server.py
+        env:
+          # Dummy values — server only needs them present; nothing reaches Strava.
+          STRAVA_CLIENT_ID: dummy
+          STRAVA_CLIENT_SECRET: dummy
+          STRAVA_REFRESH_TOKEN: dummy_refresh_token_of_sufficient_length
+          MCP_PATH_SECRET: ci-test-secret-of-at-least-24-chars-long
+        run: |
+          PYTHONPATH=src python -c "
+          import server
+          assert hasattr(server, 'list_recent_activities')
+          assert hasattr(server, 'get_weekly_summary')
+          assert hasattr(server, 'get_activity_detail')
+          assert hasattr(server, '_check_mcp_version')
+          assert hasattr(server, '_check_path_secret')
+          assert hasattr(server, '_check_bind_host')
+          assert hasattr(server, '_error_envelope')
+          print('all symbols present')
+          "
+
+      - name: Validator subprocess smoke (no network)
+        env:
+          STRAVA_CLIENT_ID: dummy
+          STRAVA_CLIENT_SECRET: dummy
+          STRAVA_REFRESH_TOKEN: dummy_refresh_token_of_sufficient_length
+          MCP_PATH_SECRET: ci-test-secret-of-at-least-24-chars-long
+        run: |
+          python -c "
+          import sys
+          sys.path.insert(0, 'scripts')
+          from smoke_auth import bad_startup_cases
+          assert bad_startup_cases(), 'bad-startup smoke failed'
+          print('startup validators ok')
+          "

@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+.venv/
+venv/
+env/
+ENV/
+
+# Build / distribution
+dist/
+build/
+*.manifest
+*.spec
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+coverage.xml
+*.cover
+
+# Type-checker caches
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+
+# Secrets / local config
+.env
+.env.local
+.env.*.local
+
+# Runtime / app data
+coach.db
+*.sqlite
+*.sqlite3
+*.db
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Spec Kit local state (per-checkout, not shared)
+.specify/feature.json
+.specify/init-options.json
+.specify/extensions/.registry
+
+# Local scratch / dev tooling
+sample.sh
+*.log
+/tmp/
+
+# OS specific
+.AppleDouble
+.LSOverride

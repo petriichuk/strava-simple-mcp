@@ -40,7 +40,7 @@ Templates audited:
 Deferred TODOs: none.
 -->
 
-# Strava Coach MCP Constitution
+# Strava Simple MCP Constitution
 
 ## Core Principles
 

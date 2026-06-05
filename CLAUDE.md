@@ -1,4 +1,4 @@
-# strava_v2_coach Development Guidelines
+# strava-simple-mcp Development Guidelines
 
 Auto-generated from all feature plans. Last updated: 2026-05-31
 

@@ -1,4 +1,4 @@
-# strava-custom-mcp
+# strava-simple-mcp
 
 A remote [MCP](https://modelcontextprotocol.io) server that gives [Claude](https://claude.ai)
 live, computed access to your Strava training data — without spending an API cent.
@@ -24,7 +24,7 @@ chat becomes the coach; this server is the data layer.
                  │
                  │  custom connector  (HTTPS, streamable HTTP)
                  ▼
-        strava-custom-mcp server
+        strava-simple-mcp server
                  │
                  ├──► Strava API     (read activities/streams/zones)
                  └──► SQLite cache   (activity + computed-metric cache)
@@ -60,8 +60,8 @@ for the exact shapes.
 ## Quickstart (local, ~5 minutes)
 
 ```bash
-git clone https://github.com/<you>/strava-custom-mcp.git
-cd strava-custom-mcp
+git clone https://github.com/<you>/strava-simple-mcp.git
+cd strava-simple-mcp
 
 python3 -m venv .venv
 source .venv/bin/activate

@@ -1,4 +1,4 @@
-"""Auth-gate smoke test for the Strava Coach MCP server.
+"""Auth-gate smoke test for the Strava Simple MCP server.
 
 Verifies the path-secret auth contract from `contracts/mount-and-auth.md`:
 

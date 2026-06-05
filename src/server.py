@@ -1,4 +1,4 @@
-"""Strava Coach MCP server.
+"""Strava Simple MCP server.
 
 Streamable-HTTP transport mounted at /<MCP_PATH_SECRET>/mcp. No LLM calls
 and no plan-memory storage (constitution principles I + III). Tools return

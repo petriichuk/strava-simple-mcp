@@ -1,4 +1,4 @@
-"""Smoke test for the Strava Coach MCP server.
+"""Smoke test for the Strava Simple MCP server.
 
 Drives the three tools against a locally-running server and asserts each
 response matches the contracts/mcp-tools.md shape. Optionally measures
@@ -241,7 +241,7 @@ def _build_url() -> str:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Smoke test the Strava Coach MCP server.")
+    parser = argparse.ArgumentParser(description="Smoke test the Strava Simple MCP server.")
     parser.add_argument(
         "--measure-startup",
         action="store_true",

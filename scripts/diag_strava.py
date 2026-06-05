@@ -11,7 +11,7 @@ Reads `.env`, then:
 Prints actionable next steps. Never prints token values.
 
 Usage:
-    cd strava-custom-mcp
+    cd strava-simple-mcp
     python scripts/diag_strava.py
 """
 from __future__ import annotations

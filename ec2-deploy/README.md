@@ -5,12 +5,12 @@ Prereqs: a domain pointed at the instance's public IP, security group open on 44
 
 ```bash
 sudo apt update && sudo apt install -y python3-venv nginx certbot python3-certbot-nginx
-sudo mkdir -p /opt/strava-custom-mcp && sudo chown $USER /opt/strava-custom-mcp
+sudo mkdir -p /opt/strava-simple-mcp && sudo chown $USER /opt/strava-simple-mcp
 
-# Copy src/* + requirements.txt + .env into /opt/strava-custom-mcp.
+# Copy src/* + requirements.txt + .env into /opt/strava-simple-mcp.
 # NOTE: server.py imports cache/strava/metrics by top-level name, so put the
 # files from src/ at the working-directory ROOT (or set PYTHONPATH=src).
-cd /opt/strava-custom-mcp
+cd /opt/strava-simple-mcp
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 cp .env.example .env   # then edit .env with your real values
 

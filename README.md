@@ -12,15 +12,22 @@ only; it never calls an LLM.
 
 ## Why
 
-If you have Claude Max and a server you can reach (laptop + tunnel for dev, a
-small VPS for production), this gives Claude the data it needs to reason about
-your training without the per-token cost of running an agent yourself. Your
-chat becomes the coach; this server is the data layer.
+If you have a paid Claude plan that supports custom connectors (Pro, Max,
+Team, or Enterprise — Pro works) and a server you can reach (laptop +
+tunnel for dev, a small VPS for production), this gives Claude the data it
+needs to reason about your training without the per-token cost of running
+an agent yourself. Your chat becomes the coach; this server is the data
+layer.
+
+Anthropic has changed which plan tiers expose custom connectors over time
+— check the
+[current support article](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
+if you're unsure whether your plan qualifies.
 
 ## Architecture
 
 ```
-   Claude (Max chat, Project + memory)
+   Claude.ai chat (Project + memory)
                  │
                  │  custom connector  (HTTPS, streamable HTTP)
                  ▼

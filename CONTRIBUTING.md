@@ -2,8 +2,8 @@
 
 Thanks for taking the time to look at this project. This is a small,
 single-author personal-use codebase that has been opened up because the
-plumbing might be useful to other people running the same Claude Max +
-Strava workflow.
+plumbing might be useful to other people running the same Claude +
+Strava workflow on any paid plan with custom-connector support.
 
 ## How to contribute
 

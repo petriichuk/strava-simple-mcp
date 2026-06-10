@@ -234,11 +234,18 @@ def get_weekly_summary(weeks: int = 8) -> str:
 
 @mcp.tool()
 def get_activity_detail(activity_id: int) -> str:
-    """Detailed analysis of one activity: km splits, first/second-half HR & pace,
-    HR drift, Pa:HR decoupling, and time-in-zone. Computed once, then cached."""
+    """Detailed analysis of one activity: the athlete's name + description,
+    km splits, auto-detected work/recovery intervals (each rep's pace, HR, max
+    HR — under stream_metrics.intervals; a planned structure parsed from the
+    name/description such as "6x400m" or "4:30x(300+200)x14" is echoed under
+    intervals.planned), first/second-
+    half HR & pace, HR drift, Pa:HR decoupling, and time-in-zone. Computed once,
+    then cached."""
     try:
         cached = cache.get_metrics(activity_id)
-        if cached:
+        # Reuse cache only if it was computed by the current metrics version;
+        # older rows predate interval detection, so recompute them.
+        if cached and cached.get("_metrics_v") == metrics.METRICS_VERSION:
             return json.dumps(cached, ensure_ascii=False)
 
         detail = strava.activity_detail(activity_id)
@@ -248,9 +255,18 @@ def get_activity_detail(activity_id: int) -> str:
         except Exception:
             zones = []
 
+        # The free-text name/description sometimes spells out the session, e.g.
+        # "6x400m" — parse it as a hint to corroborate interval detection.
+        description = detail.get("description")
+        hint = metrics.parse_workout_hint(
+            " ".join(filter(None, [detail.get("name"), description]))
+        )
+
         result = {
+            "_metrics_v": metrics.METRICS_VERSION,
             "id": activity_id,
             "name": detail.get("name"),
+            "description": description,
             "date": (detail.get("start_date_local") or "")[:10],
             "distance_km": round((detail.get("distance") or 0) / 1000.0, 2),
             "official_splits_metric": [
@@ -262,7 +278,7 @@ def get_activity_detail(activity_id: int) -> str:
                 }
                 for s in (detail.get("splits_metric") or [])
             ],
-            "stream_metrics": metrics.compute_stream_metrics(streams),
+            "stream_metrics": metrics.compute_stream_metrics(streams, hint=hint),
             "time_in_zone": metrics.summarise_zones(zones),
         }
         cache.save_metrics(activity_id, result)
